@@ -1,7 +1,7 @@
 <h2>Reactive: <small>Dinámicos</small></h2>
 <hr />
 
-<form autocomplete="off">
+<form (ngSubmit)="guardar()" autocomplete="off" [formGroup]="miFormulario">
   <!-- Nombre -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
@@ -10,8 +10,11 @@
         class="form-control"
         type="text"
         placeholder="Nombre de la persona"
+        formControlName="nombre"
       />
-      <span class="form-text text-danger"> Este campo es obligatiorio</span>
+      <span class="form-text text-danger" *ngIf="campoValido('nombre')">
+        Este campo es obligatiorio</span
+      >
     </div>
   </div>
 
@@ -35,36 +38,36 @@
   <!-- Lista de Juegos Favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <div class="col-sm-9">
-      <!-- <div
+    <div class="col-sm-9" formArrayName="favoritos">
+      <div
         class="input-group mb-1"
-        *ngFor="let juego of persona.favoritos; let i = index"
+        *ngFor="let favorito of favoritosArr.controls; let i = index"
       >
-        <input
-          class="form-control"
-        
-        
-        />
-        <button
-          class="btn btn-outline-danger"
-          (click)="1"
-          type="button"
-        >
-          Eliminar
-        </button>
-      </div> -->
+        <input class="form-control" [formControlName]="i" />
+        <button class="btn btn-outline-danger" type="button">Eliminar</button>
+      </div>
     </div>
   </div>
 
   <!-- Button Guardar -->
   <div class="row">
     <div class="col-sm-12">
-      <button type="button" class="btn btn-primary float-end" (click)="(1)">
+      <button
+        type="submit"
+        class="btn btn-primary float-end"
+        (click)="guardar()"
+      >
         Guardar
       </button>
     </div>
   </div>
 </form>
+
+<span>Valid</span>
+<pre>{{ miFormulario.valid }}</pre>
+
+<span>Value</span>
+<pre>{{ miFormulario.value | json }}</pre>
 
 <!-- <span>Persona</span>
 <pre>{{ persona | json }}</pre> -->
