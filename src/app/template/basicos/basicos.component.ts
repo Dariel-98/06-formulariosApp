@@ -8,6 +8,6 @@ import { NgForm } from '@angular/forms';
 })
 export class BasicosComponent {
   guardar(miFormulario: NgForm) {
-    console.log(miFormulario.value);
+    console.log(miFormulario.form.controls['producto']['invalid']);
   }
 }
