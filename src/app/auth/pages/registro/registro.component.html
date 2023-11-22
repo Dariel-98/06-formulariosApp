@@ -34,8 +34,8 @@
             placeholder="Email del usuario"
             formControlName="email"
           />
-          <span *ngIf="campoNoValido('username')" class="form-text text-danger"
-            >El username no puede ser "strider"</span
+          <span *ngIf="campoNoValido('email')" class="form-text text-danger"
+            >El correo es obligatorio</span
           >
         </div>
       </div>
@@ -50,8 +50,9 @@
             placeholder="Username del usuario"
             formControlName="username"
           />
-          <span *ngIf="campoNoValido('email')" class="form-text text-danger"
-            >El correo es obligatorio</span
+
+          <span *ngIf="campoNoValido('username')" class="form-text text-danger"
+            >El username no puede ser "strider"</span
           >
         </div>
       </div>
