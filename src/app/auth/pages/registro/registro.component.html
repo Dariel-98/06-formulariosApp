@@ -34,6 +34,9 @@
             placeholder="Email del usuario"
             formControlName="email"
           />
+          <span *ngIf="campoNoValido('username')" class="form-text text-danger"
+            >El username no puede ser "strider"</span
+          >
         </div>
       </div>
 
@@ -45,6 +48,7 @@
             type="text"
             class="form-control"
             placeholder="Username del usuario"
+            formControlName="username"
           />
           <span *ngIf="campoNoValido('email')" class="form-text text-danger"
             >El correo es obligatorio</span
@@ -92,3 +96,6 @@
 
 <h5>Email</h5>
 <pre>{{ miFormulario.controls["email"].errors | json }}</pre>
+
+<h5>Username</h5>
+<pre>{{ miFormulario.controls["username"].errors | json }}</pre>
