@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidatorService } from 'src/app/shared/validator/email-validator.service';
 import {
   emailPattern,
   noPuedeSerStrider,
@@ -13,30 +14,41 @@ import { ValidatorService } from 'src/app/shared/validator/validator.service';
   styles: [],
 })
 export class RegistroComponent implements OnInit {
-  miFormulario: FormGroup = this.fb.group({
-    nombre: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validatorService.nombreApellidoPattern),
+  miFormulario: FormGroup = this.fb.group(
+    {
+      nombre: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.nombreApellidoPattern),
+        ],
       ],
-    ],
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validatorService.emailPattern),
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.emailPattern),
+        ],
+        [this.emailValidator],
       ],
-    ],
-    username: [
-      '',
-      [Validators.required, this.validatorService.noPuedeSerStrider],
-    ],
-  });
+      username: [
+        '',
+        [Validators.required, this.validatorService.noPuedeSerStrider],
+      ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required]],
+    },
+    {
+      Validators: [
+        this.validatorService.camposIguales('password', 'password2'),
+      ],
+    }
+  );
 
   constructor(
     private fb: FormBuilder,
-    private validatorService: ValidatorService
+    private validatorService: ValidatorService,
+    private emailValidator: EmailValidatorService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +56,8 @@ export class RegistroComponent implements OnInit {
       nombre: 'Dariel Gomez',
       email: 'test1@test.com',
       username: 'dariel_98',
+      password: '123456',
+      password2: '123456',
     });
   }
   campoNoValido(campo: string) {
